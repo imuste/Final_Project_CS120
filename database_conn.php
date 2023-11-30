@@ -20,7 +20,8 @@ $sql = "INSERT INTO user_info (firstname, lastname, email)
 
 
 if ($conn->query($sql) === TRUE) {
-    echo "Data inserted successfully";
+    $last_insert_ID = $conn->insert_id;
+    echo $last_insert_ID;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

@@ -179,5 +179,6 @@ function save_userinfo_to_db() {
 // redirect to recipe page of app that will display the recipes, along with buttons to take the user to 
 // the different youtube videos of each recipe
 function redirect(url){
-    
+    localStorage.setItem("country_url", JSON.stringify(FINALCOUNTRY_URL))
+    window.location.href = "recipe.html";
 }
