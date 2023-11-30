@@ -3,7 +3,7 @@ var france = "www.themealdb.com/api/json/v1/1/filter.php?a=French"; // 40 <= tem
 var china = "www.themealdb.com/api/json/v1/1/filter.php?a=Chinese"; // 50 <= temperature < 60
 var india = "www.themealdb.com/api/json/v1/1/filter.php?a=Indian"; // 60 <= temperature < 70
 var mexico = "www.themealdb.com/api/json/v1/1/filter.php?a=Mexican"; // 70 <= temperature < 80
-var tunesia = "www.themealdb.com/api/json/v1/1/filter.php?a=Tunisian"; // temperature >= 80
+var tunisia = "www.themealdb.com/api/json/v1/1/filter.php?a=Tunisian"; // temperature >= 80
 
 var FINALCOUNTRY_URL = "";
 
@@ -101,7 +101,7 @@ function find_country_for_query() {
     }
 
     else {
-        FINALCOUNTRY_URL = tunesia;
+        FINALCOUNTRY_URL = tunisia;
     }
 }
 
