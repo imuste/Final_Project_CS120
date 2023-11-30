@@ -44,6 +44,8 @@ document.getElementById('information_form').addEventListener('submit', function(
 
     save_user_data_to_session(); 
     save_userinfo_to_db();
+    redirect(FINALCOUNTRY_URL)
+    // redirect to next page: recipe.html
 });
 
 
@@ -173,4 +175,9 @@ function save_userinfo_to_db() {
             console.log(response);
         }
     });
+}
+// redirect to recipe page of app that will display the recipes, along with buttons to take the user to 
+// the different youtube videos of each recipe
+function redirect(url){
+    
 }
