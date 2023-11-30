@@ -1,0 +1,84 @@
+html, body {
+    background-color: rgb(150, 167, 183);
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 40px;
+    padding-bottom: 20px;
+}
+
+.query_field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.textfield {
+    text-align: center;
+}
+
+.content-container {
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 8px;
+}
+
+input[type=text], select {
+    font-size: 15px;
+    align-self: center;
+    width: 50%;
+    padding: 12px;
+    border: 1px solid rgba(174, 169, 179, 0.7);
+    background-color: rgb(240, 237, 242);
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: rgba(91, 118, 207, 0.7);
+    font-size: 18px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+input[type=submit]:hover {
+    background-color: rgba(191, 160, 223, 0.7);
+    color: rgb(0, 0, 0);
+}
+
+.weather_display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.weather_container {
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 8px;
+}
+
+h3 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+#weather_variables {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
