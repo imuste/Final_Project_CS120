@@ -1,9 +1,12 @@
 // Define an array to store the saved recipes
 let savedRecipes = [];
-
+var urlString = "https://www.themealdb.com/api/json/v1/1/filter.php?a="
 // URL to fetch the list of Mexican meals for testing
-var url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Mexican";
-//var url = localStorage.getItem('country_url')
+//var url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Mexican";
+
+var url = localStorage.getItem("country_url");
+url = url.replace(/^"(.*)"$/, "$1"); // Removes quotes from the beginning and end of the string
+
 // URL to fetch details of a specific meal by ID
 var id_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
