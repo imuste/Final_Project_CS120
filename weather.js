@@ -43,7 +43,7 @@ document.getElementById('information_form').addEventListener('submit', function(
     user_email = document.getElementById('emailaddress').value;
 
     save_user_data_to_session(); 
-    save_userinfo_to_db();
+    //save_userinfo_to_db();
     redirect(FINALCOUNTRY_URL)
     // redirect to next page: recipe.html
 });
