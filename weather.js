@@ -1,9 +1,9 @@
-var usa = "www.themealdb.com/api/json/v1/1/filter.php?a=American"; //temperature < 40
-var france = "www.themealdb.com/api/json/v1/1/filter.php?a=French"; // 40 <= temperature < 50
-var china = "www.themealdb.com/api/json/v1/1/filter.php?a=Chinese"; // 50 <= temperature < 60
-var india = "www.themealdb.com/api/json/v1/1/filter.php?a=Indian"; // 60 <= temperature < 70
-var mexico = "www.themealdb.com/api/json/v1/1/filter.php?a=Mexican"; // 70 <= temperature < 80
-var tunisia = "www.themealdb.com/api/json/v1/1/filter.php?a=Tunisian"; // temperature >= 80
+var usa = "https://www.themealdb.com/api/json/v1/1/filter.php?a=American"; //temperature < 40
+var france = "https://www.themealdb.com/api/json/v1/1/filter.php?a=French"; // 40 <= temperature < 50
+var china = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese"; // 50 <= temperature < 60
+var india = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian"; // 60 <= temperature < 70
+var mexico = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Mexican"; // 70 <= temperature < 80
+var tunisia = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Tunisian"; // temperature >= 80
 
 var FINALCOUNTRY_URL = "";
 
