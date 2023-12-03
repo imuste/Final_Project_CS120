@@ -24,7 +24,53 @@ var user_email = "";
 
 
 //we could possible change the background color of the page based on the weather returned from the api
+function changeWeatherAnimation(weather) {
 
+    const animationDiv = document.getElementById('animation');
+
+    if (weather.includes('rain')) {
+        animationDiv.style.background = "url('image/rain2.gif') no-repeat top center";
+        animationDiv.style.backgroundSize = "cover";
+        animationDiv.style.animation = "rainFall 3s linear forwards";
+    }else if(weather.includes('cloud')){
+        animationDiv.style.background = "url('image/cloud.gif') no-repeat top center";
+        animationDiv.style.backgroundSize = "cover";
+        animationDiv.style.animation = "cloud 3s linear forwards";
+    }else if(weather.includes('snow')){
+        animationDiv.style.background = "url('image/snow.gif') no-repeat top center";
+        animationDiv.style.backgroundSize = "cover";
+        animationDiv.style.animation = "Snow 3s linear forwards";
+    }else if(weather.includes('clear sky')){
+        animationDiv.style.background = "url('image/clear_sky.gif') no-repeat top center";
+        animationDiv.style.backgroundSize = "cover";
+        animationDiv.style.animation = "clear_sky 3s linear forwards";
+    }else if(weather.includes('haze')){
+        animationDiv.style.background = "url('image/cloud.gif') no-repeat top center";
+        animationDiv.style.backgroundSize = "cover";
+        animationDiv.style.animation = "cloud 3s linear forwards";
+    }
+}
+
+function changeWeatherIcon(weather) {
+
+    const IconDiv = document.getElementById('display_icon');
+
+    const img = document.createElement('img');
+
+    if (weather.includes('rain')) {
+        img.src = 'image/rain.svg';
+    }else if(weather.includes('cloud')){
+        img.src = 'image/cloud.svg';
+    }else if(weather.includes('snow')){
+        img.src = 'image/snow.svg';
+    }else if(weather.includes('clear sky')){
+        img.src = 'image/sun.svg';
+    }else if(weather.includes('haze')){
+        img.src = 'image/cloud.svg';
+    }
+
+    IconDiv.appendChild(img);
+}
 
 //get the entered location and store it in the location_entry variable
 document.getElementById("location_entry").addEventListener("change", function() {
