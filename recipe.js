@@ -214,8 +214,9 @@ window.onload = async function () {
         fetch(`fetchSaved.php?user_id=${userID}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data); // Handle the response data (OrderIDs)
-                // Process and use the retrieved OrderIDs as needed
+                console.log(data); 
+                localStorage.setItem(savedRecipes, data);
+                
             })
             .catch(error => {
                 console.error('Error fetching OrderIDs:', error);
