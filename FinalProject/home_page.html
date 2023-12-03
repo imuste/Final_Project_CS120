@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="weather.css" />
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <title>WEATHER RECIPE PAGE</title>
+
+    </head>
+    <body>
+
+        <h1>WEATHER APP / RECIPE GENERATOR</h1>
+
+        <div class="query_field">
+            <div class="content-container">
+                <h2>PLEASE ENTER A CITY <br> TO GET THE WEATHER <br> </h2>
+                <div class="textfield">
+                    <input type="text" id="location_entry" name="location_entry" placeholder="Enter Location"> <br>
+                    <input type="submit" id="submitbutton" value="SEARCH">
+                </div>
+            </div>
+        </div>
+
+        <div class="weather_display" style="display: none;">
+            <div class="weather_container">
+                <h3 id="display_weather_header"></h3>
+                <h6 id="weather_variables"></h6>
+                <p class="sign_up">If you would like to get recipes that would go great with this weather, <br>
+                    simply enter your name and email and we will generate the recipes for you!
+                </p>
+                <div class="user_form">
+                    <form id="information_form">
+                        <input type="text" id="fname" name="firstname" placeholder="First Name">
+                        <input type="text" id="lname" name="lastname" placeholder="Last Name">
+                        <input type="text" id="emailaddress" name="email" placeholder="Email Address">
+                        <div> 
+                            <input type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="weather.js"></script>
+
+    </body>
+</html>
