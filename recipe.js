@@ -6,7 +6,7 @@ url = url.replace(/^"(.*)"$/, "$1"); // Removes quotes from the beginning and en
 
 var id_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
-async function use_mealDB_country(){
+async function use_mealDB_country() {
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -16,7 +16,7 @@ async function use_mealDB_country(){
     }
 }
 
-async function process_country(data){
+async function process_country(data) {
     if (data && data.meals) {
         const meals = data.meals;
         const shuffledMeals = meals.sort(() => Math.random() - 0.5);
@@ -33,13 +33,13 @@ async function process_country(data){
     }
 }
 
-async function full_meal_lookups(selectedRecipes){
-    for (let recipe of selectedRecipes){
+async function full_meal_lookups(selectedRecipes) {
+    for (let recipe of selectedRecipes) {
         await use_mealDB_id(recipe.id);
     }
 }
 
-async function use_mealDB_id(id){
+async function use_mealDB_id(id) {
     try {
         const this_url = id_url + id;
         const response = await fetch(this_url);
@@ -50,32 +50,70 @@ async function use_mealDB_id(id){
     }
 }
 
-function process_id(data){
+function process_id(data) {
     const dishName = data.meals[0].strMeal;
     const youtubeURL = data.meals[0].strYoutube;
     const mealThumbnail = data.meals[0].strMealThumb;
-    const newRecipe = { name: dishName, youtubeURL: youtubeURL , thumbnail: mealThumbnail};
+    const instructions = data.meals[0].strInstructions;
+    const ID = data.meals[0].idMeal;
+
+    // Extracting ingredients and measures dynamically
+    const ingredients = [];
+    const measures = [];
+    for (let i = 1; i <= 20; i++) {
+        const ingredient = data.meals[0][`strIngredient${i}`];
+        const measure = data.meals[0][`strMeasure${i}`];
+        if (ingredient && measure) {
+            ingredients.push(ingredient);
+            measures.push(measure);
+        } else {
+            break; // Stop if no more ingredients or measures are available
+        }
+    }
+
+    const newRecipe = {
+        name: dishName,
+        youtubeURL: youtubeURL,
+        thumbnail: mealThumbnail,
+        instructions: instructions,
+        id: ID,
+        ingredients: ingredients,
+        measures: measures
+    };
     savedRecipes.push(newRecipe);
 }
 
+
 async function displaySavedRecipes() {
-    
     const recipesContainer = document.getElementById('recipes-container');
     recipesContainer.innerHTML = ''; // Clear the container before displaying updated content
 
     if (savedRecipes.length > 0) {
-        const recipe = savedRecipes[currentRecipeIndex]; // Use the currentRecipeIndex
+        const recipe = savedRecipes[currentRecipeIndex]; // Get the current recipe from the array
 
         const recipeItem = document.createElement('div');
         recipeItem.classList.add('recipe-item');
 
-        const recipeName = document.createElement('p');
+        const recipeName = document.createElement('h2');
         recipeName.textContent = recipe.name;
 
         const thumbnailImg = document.createElement('img');
         thumbnailImg.src = recipe.thumbnail;
         thumbnailImg.alt = recipe.name;
         thumbnailImg.classList.add('recipe-thumbnail');
+
+        const instructions = document.createElement('p');
+        instructions.textContent = `Instructions: ${recipe.instructions}`;
+
+        const ingredientsTitle = document.createElement('h3');
+        ingredientsTitle.textContent = 'Ingredients:';
+
+        const ingredientsList = document.createElement('ul');
+        recipe.ingredients.forEach((ingredient, index) => {
+            const ingredientItem = document.createElement('li');
+            ingredientItem.textContent = `${recipe.measures[index]} ${ingredient}`;
+            ingredientsList.appendChild(ingredientItem);
+        });
 
         const viewButton = document.createElement('button');
         viewButton.textContent = "View on Youtube";
@@ -87,15 +125,46 @@ async function displaySavedRecipes() {
             }
         });
 
+
         recipeItem.appendChild(recipeName);
         recipeItem.appendChild(thumbnailImg);
+        recipeItem.appendChild(instructions);
+        recipeItem.appendChild(ingredientsTitle);
+        recipeItem.appendChild(ingredientsList);
         recipeItem.appendChild(viewButton);
 
         recipesContainer.appendChild(recipeItem);
+        // Inside displaySavedRecipes function
+
+        // Create a button to save the recipe
+        const saveButton = document.createElement('button');
+        saveButton.textContent = "Save Recipe";
+        saveButton.addEventListener('click', () => {
+            const userID = localStorage.getItem('user_id');
+            const recipeID = recipe.id;
+            saveRecipe(userID, recipeID); // Call the function to save the recipe
+        });
+
+        recipeItem.appendChild(saveButton); // Append the save button to the recipe item
+
     }
 }
 
-window.onload = async function() {
+function saveRecipe(userID, recipeID) {
+    fetch(`saveRecipe.php?userID=${userID}&recipeID=${recipeID}`)
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Log the response (e.g., success message)
+            // Handle success message or any additional actions
+        })
+        .catch(error => {
+            console.error('Error saving recipe:', error);
+        });
+}
+
+
+
+window.onload = async function () {
     savedRecipes = []; // Reset the array before fetching new recipes
     await use_mealDB_country();
     displaySavedRecipes();
@@ -105,21 +174,68 @@ window.onload = async function() {
 
     // "Next" button functionality
     nextButton.addEventListener('click', () => {
-        if (currentRecipeIndex < savedRecipes.length - 1) {
-            currentRecipeIndex++;
-        } else {
-            currentRecipeIndex = 0; // Loop back to the first recipe
-        }
-        displaySavedRecipes(); // Display the next recipe
+        currentRecipeIndex = (currentRecipeIndex + 1) % savedRecipes.length;
+        displaySavedRecipes();
     });
 
     // "Previous" button functionality
     prevButton.addEventListener('click', () => {
-        if (currentRecipeIndex > 0) {
-            currentRecipeIndex--;
-        } else {
-            currentRecipeIndex = savedRecipes.length - 1; // Go to the last recipe
-        }
-        displaySavedRecipes(); // Display the previous recipe
+        currentRecipeIndex = (currentRecipeIndex - 1 + savedRecipes.length) % savedRecipes.length;
+        displaySavedRecipes();
     });
+
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownBtn.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('show');
+        createOrderButton(); // Create the button when dropdown is clicked
+    });
+
+    function createOrderButton() {
+        dropdownMenu.innerHTML = ''; // Clear previous content
+
+        const orderButton = document.createElement('button');
+        orderButton.textContent = 'View Saved Recipes';
+        orderButton.classList.add('order-button');
+
+        orderButton.addEventListener('click', () => {
+            sendUserIDToPHP(); // Send the userID to PHP when button is clicked
+        });
+
+        dropdownMenu.appendChild(orderButton);
+    }
+
+    function sendUserIDToPHP() {
+        const userID = localStorage.getItem('user_id');
+        console.log("userID" + userID);
+
+        // AJAX request to send userID to PHP script
+        fetch(`fetchSaved.php?user_id=${userID}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Handle the response data (OrderIDs)
+                // Process and use the retrieved OrderIDs as needed
+            })
+            .catch(error => {
+                console.error('Error fetching OrderIDs:', error);
+            });
+    }
+
+    const customerFirstName = localStorage.getItem('user_firstname');
+    const customerLastName = localStorage.getItem('user_lastname');
+    const userID = localStorage.getItem('user_id');
+
+    if (customerFirstName && customerLastName) {
+        const customerName = `${customerFirstName} ${customerLastName}`;
+        const customerLink = document.createElement('a');
+        customerLink.textContent = `View ${customerName}'s Saved Recipes`;
+        customerLink.href = 'path_to_customer_recipes_page'; // Replace with the actual path
+
+        const dropdownItem = document.createElement('div');
+        dropdownItem.classList.add('dropdown-item');
+        dropdownItem.appendChild(customerLink);
+
+        dropdownMenu.appendChild(dropdownItem);
+    }
 };
