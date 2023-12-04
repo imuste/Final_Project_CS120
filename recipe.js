@@ -1,10 +1,12 @@
 let savedRecipes = [];
 let currentRecipeIndex = 0;
+let recipesArray = [];
+var url_before = localStorage.getItem("country_url");
+var userID = localStorage.getItem('user_id');
+console.log("userID" + userID);
+var url = url_before.replace(/^"(.*)"$/, "$1"); // Removes quotes from the beginning and end of the string
 
-var url = localStorage.getItem("country_url");
-url = url.replace(/^"(.*)"$/, "$1"); // Removes quotes from the beginning and end of the string
-
-var id_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+const id_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
 async function use_mealDB_country() {
     try {
@@ -35,22 +37,22 @@ async function process_country(data) {
 
 async function full_meal_lookups(selectedRecipes) {
     for (let recipe of selectedRecipes) {
-        await use_mealDB_id(recipe.id);
+        await use_mealDB_id(recipe.id, true);
     }
 }
 
-async function use_mealDB_id(id) {
+async function use_mealDB_id(id, initialLoad) {
     try {
         const this_url = id_url + id;
         const response = await fetch(this_url);
         const data = await response.json();
-        process_id(data);
+        process_id(data, initialLoad);
     } catch (error) {
         console.log(error);
     }
 }
 
-function process_id(data) {
+function process_id(data, initialLoad) {
     const dishName = data.meals[0].strMeal;
     const youtubeURL = data.meals[0].strYoutube;
     const mealThumbnail = data.meals[0].strMealThumb;
@@ -80,7 +82,12 @@ function process_id(data) {
         ingredients: ingredients,
         measures: measures
     };
-    savedRecipes.push(newRecipe);
+    if (initialLoad){
+        savedRecipes.push(newRecipe);
+    }
+    else{
+        recipesArray.push(newRecipe);
+    }
 }
 
 
@@ -140,7 +147,6 @@ async function displaySavedRecipes() {
         const saveButton = document.createElement('button');
         saveButton.textContent = "Save Recipe";
         saveButton.addEventListener('click', () => {
-            const userID = localStorage.getItem('user_id');
             const recipeID = recipe.id;
             saveRecipe(userID, recipeID); // Call the function to save the recipe
         });
@@ -171,6 +177,7 @@ window.onload = async function () {
 
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
+    
 
     // "Next" button functionality
     nextButton.addEventListener('click', () => {
@@ -189,54 +196,41 @@ window.onload = async function () {
 
     dropdownBtn.addEventListener('click', () => {
         dropdownMenu.classList.toggle('show');
-        createOrderButton(); // Create the button when dropdown is clicked
+        createSaveButton(); // Create the button when dropdown is clicked
     });
 
-    function createOrderButton() {
-        dropdownMenu.innerHTML = ''; // Clear previous content
+    
 
-        const orderButton = document.createElement('button');
-        orderButton.textContent = 'View Saved Recipes';
-        orderButton.classList.add('order-button');
+    
+}
 
-        orderButton.addEventListener('click', () => {
-            sendUserIDToPHP(); // Send the userID to PHP when button is clicked
-        });
+function createSaveButton() {
+    dropdownMenu.innerHTML = ''; // Clear previous content
 
-        dropdownMenu.appendChild(orderButton);
+    const orderButton = document.createElement('button');
+    orderButton.textContent = 'View Saved Recipes';
+    orderButton.classList.add('order-button');
+
+    orderButton.addEventListener('click', () => {
+        sendUserIDToPHP(); // Send the userID to PHP when button is clicked
+    });
+
+    dropdownMenu.appendChild(orderButton);
+}
+
+async function sendUserIDToPHP() {
+    try {
+        const response = await fetch(`fetchSaved.php?user_id=${userID}`);
+        const data = await response.json();
+
+        for (let id of data) {
+            await use_mealDB_id(id, false);
+        }
+
+        localStorage.setItem("savedRecipes", JSON.stringify(recipesArray));
+        window.location.href = "savedRecipes.html";
+    } catch (error) {
+        console.error('Error fetching OrderIDs:', error);
+        // Handle the error, such as displaying an error message
     }
-
-    function sendUserIDToPHP() {
-        const userID = localStorage.getItem('user_id');
-        console.log("userID" + userID);
-
-        // AJAX request to send userID to PHP script
-        fetch(`fetchSaved.php?user_id=${userID}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); 
-                localStorage.setItem(savedRecipes, data);
-                
-            })
-            .catch(error => {
-                console.error('Error fetching OrderIDs:', error);
-            });
-    }
-
-    const customerFirstName = localStorage.getItem('user_firstname');
-    const customerLastName = localStorage.getItem('user_lastname');
-    const userID = localStorage.getItem('user_id');
-
-    if (customerFirstName && customerLastName) {
-        const customerName = `${customerFirstName} ${customerLastName}`;
-        const customerLink = document.createElement('a');
-        customerLink.textContent = `View ${customerName}'s Saved Recipes`;
-        customerLink.href = 'path_to_customer_recipes_page'; // Replace with the actual path
-
-        const dropdownItem = document.createElement('div');
-        dropdownItem.classList.add('dropdown-item');
-        dropdownItem.appendChild(customerLink);
-
-        dropdownMenu.appendChild(dropdownItem);
-    }
-};
+}
