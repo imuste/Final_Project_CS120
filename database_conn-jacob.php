@@ -19,7 +19,7 @@ $email = $_POST['email'];
 if (isset($_SESSION['user_info'][$email])) {
     $_SESSION['user_info'][$email]++;
     // Limit usage to 5 requests per day
-    if ($_SESSION['user_info'][$email] > 2) {
+    if ($_SESSION['user_info'][$email] > 5) {
         echo 0;
     } else {
         // Continue with inserting data to the database
