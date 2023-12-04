@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-        data = localStorage.getItem("savedRecipes");
-        document.write(data);
-    </script>
+    <link rel="stylesheet" href="savedRecipes.css" />
+    <title>Saved Recipes</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Style your recipes and the "More" button as needed */
+    </style>
 </head>
 <body>
+    <button id="returnHome">Return Home</button>
     
+    <div id="recipes-container"></div>
+    
+    <script src="savedRecipes.js"></script>
 </body>
 </html>
