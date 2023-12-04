@@ -205,7 +205,8 @@ function get_data_from_session() {
     wind_speed = localStorage.getItem('wind_speed');
     weather_description = localStorage.getItem('description');
 }
-
+//variable to check if a person has any attempts left
+//If not, is set to zero in save_userinfo_to_db()
 var attempts;
 
 //saving the user information to the database
