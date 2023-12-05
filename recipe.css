@@ -1,0 +1,157 @@
+html, body {
+  background-color: rgba(183, 152, 195);
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 40px;
+  padding-bottom: 20px;
+  color:white;
+  margin-bottom: auto;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
+  color:white;
+  margin-bottom: auto;
+}
+
+p {
+  text-align: center;
+  font-size: 15px;
+  padding-bottom: 20px;
+  color:white;
+  margin-bottom: auto;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul {
+    padding-left: 0;
+
+}
+
+li {
+  text-align: center;
+  font-size: 15px;
+  color:white;
+  margin-bottom: auto;
+  list-style: none;
+  padding-right: 10px;
+}
+
+#recipes-container{
+  align-self: center;
+}
+
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#menu-buttons {
+  background-color: rgba(91, 118, 207, 0.7);
+  color: white;
+  font-size: inline-block;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button, #dropdownBtn {
+  background-color: rgba(91, 118, 207, 0.7);
+  color: white;
+  font-size: 18px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  padding-right: 20px;
+  margin-right: 7px;
+  margin-left: 5px;
+}
+
+button:hover {
+  background-color: rgba(91, 118, 207, 0.7);
+  color: rgb(0, 0, 0);
+}
+
+#dropdownBtn:hover {
+  background-color: rgba(91, 118, 207, 0.7);
+  color: rgb(0, 0, 0);
+}
+
+
+.recipe-thumbnail {
+    max-width: 200px; 
+    max-height: 150px; 
+    padding-left: 10px;
+    
+}
+
+.menu-buttons {
+    margin: 5px;
+}
+
+
+/* Style the dropdown button */
+/* Style the dropdown button */
+/* Style the dropdown button */
+#dropdownBtn {
+    position: fixed;
+    top: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    background-color: rgba(91, 118, 207, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Style the dropdown content (hidden by default) */
+  #dropdownMenu {
+    display: none;
+    position: fixed;
+    top: 40px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    background-color: rgba(82, 60, 91);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  
+  /* Show the dropdown menu when the button is clicked */
+  #dropdownMenu.show {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  /* Style the dropdown items */
+  .dropdown-item {
+    /* padding: 12px 16px; */
+    text-decoration: none;
+    display: block;
+    color: white;
+    margin: 5px;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+
+  @media only screen and (max-width: 950px) {
+    h2 {
+        margin-top: 100px;
+    }
+   
+  }
+  

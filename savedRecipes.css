@@ -1,0 +1,86 @@
+/* Style your recipes and the "More" button as needed */
+html, body {
+    background-color: rgba(183, 152, 195);
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: white;
+    font-size: 35px;
+}
+
+
+/* Container for all recipe items */
+#recipes-container {
+    display: flex;
+    flex-direction: column; /* Stack recipe items vertically */
+    gap: 20px; /* Spacing between recipe items */
+}
+
+/* Individual recipe item */
+.recipe-item {
+    display: flex;
+    width: 50%; /* Each item takes up full width */
+    align-items: left;
+    flex-direction: column;
+    gap: 20px; /* Spacing between thumbnail and details */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Recipe thumbnail image */
+.recipe-thumbnail {
+    width: 50%; /* Adjust thumbnail width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Details container */
+.details-content{
+    width: 50%;
+    color: white;
+}
+
+/* More button */
+.more-button {
+    margin-left: auto; /* Push the "More" button to the right */
+}
+
+#item-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+#returnHome {
+    position: fixed;
+    background-color: rgba(91, 118, 207, 0.7);
+    color: white;
+    font-size: 18px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#returnHome:hover {
+    background-color: rgba(91, 118, 207, 0.7);
+    color: rgb(0, 0, 0);  
+}
+
+.youtube-button {
+    background-color: rgba(91, 118, 207, 0.7);
+    color: white;
+    font-size: 18px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.youtube-button:hover {
+    background-color: rgba(91, 118, 207, 0.7);
+    color: rgb(0, 0, 0);  
+}
