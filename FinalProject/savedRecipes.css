@@ -1,0 +1,38 @@
+/* Style your recipes and the "More" button as needed */
+
+/* Container for all recipe items */
+#recipes-container {
+    display: flex;
+    flex-direction: column; /* Stack recipe items vertically */
+    gap: 20px; /* Spacing between recipe items */
+}
+
+/* Individual recipe item */
+.recipe-item {
+    display: flex;
+    width: 50%; /* Each item takes up full width */
+    align-items: center;
+    flex-direction: column;
+    gap: 20px; /* Spacing between thumbnail and details */
+    padding: 10px; /* Adjust padding as needed */
+    border: 1px solid #ccc; /* Border for each recipe item */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Recipe thumbnail image */
+.recipe-thumbnail {
+    width: 50%; /* Adjust thumbnail width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Details container */
+.details-content{
+    width: 50%
+}
+
+/* More button */
+.more-button {
+    margin-left: auto; /* Push the "More" button to the right */
+}
