@@ -18,7 +18,7 @@ $email = $_POST['email'];
 // Check the user's daily usage count
 if (isset($_SESSION['user_info'][$email])) {
     $_SESSION['user_info'][$email]++;
-    // Limit usage to 5 requests per day
+    // Limit usage to 5 requests
     if ($_SESSION['user_info'][$email] > 5) {
         echo 0;
     } else {
