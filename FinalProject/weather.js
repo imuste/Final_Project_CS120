@@ -212,10 +212,7 @@ var attempts;
 
 //saving the user information to the database
 function save_userinfo_to_db() {
-    if (attempts > 5) {
-        alert("Usage limit exceeded. Please pay for more usages.");
-    }
-    else {
+    
         $.ajax({
             type: "POST",
             url: "database_conn.php",
@@ -229,9 +226,9 @@ function save_userinfo_to_db() {
                 // Get the user_id from the response
                 var userId = responseObject.user_id;
                 localStorage.setItem("user_id", userId); // Save user_id to localStorage
-                console.log("userid " + userId); // Log the user_id to the console
+                //console.log("userid " + userId); // Log the user_id to the console
                 attempts = parseInt(responseObject.attempts);
-                console.log(attempts);
+                //console.log(attempts);
                 redirect(FINALCOUNTRY_URL); // Redirect after the AJAX request is successful
             },
             error: function (error) {
@@ -239,7 +236,6 @@ function save_userinfo_to_db() {
                 console.log("Error:", error);
             }
         });
-    }
 }
 
 
