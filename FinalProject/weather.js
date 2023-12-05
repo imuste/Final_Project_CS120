@@ -165,13 +165,34 @@ function use_data() {
     var change_page_display = document.querySelector('.weather_display');
     change_page_display.style.display = 'flex';
 
+    // weather_variables_string =
+    // "Temperature: " + city_temperature + " fahrenheit <br>" +
+    // "Humidity: " + humidity + "% <br>" +
+    // "Wind Speed: " + wind_speed + " mph <br>" +
+    // "Other: " + weather_description + " <br>";
+
     weather_variables_string =
-        "Temperature: " + city_temperature + " fahrenheit <br>" +
-        "Humidity: " + humidity + "% <br>" +
-        "Wind Speed: " + wind_speed + " mph <br>" +
-        "Other: " + weather_description + " <br>";
+    "<div class='variable_container'>" +
+        "<div class='var_name'>Humidity</div>" +
+        "<div class='var_number'>" + humidity + "</div>" +
+        "<div class='var_unit'>%</div>" +
+     "</div>" +
 
+    "<div class='variable_container'>" +
+        "<div class='var_name'>Temperature</div>" +
+        "<div class='var_number'>" + city_temperature + "</div>" +
+        "<div class='var_unit'>fahrenheit</div>" +
+    "</div>" +
 
+    "<div class='variable_container'>" +
+        "<div class='var_name'>Wind Speed</div>" +
+        "<div class='var_number'>" + wind_speed + "</div>" +
+        "<div class='var_unit'>mph</div>" +
+    "</div>";
+
+    changeWeatherAnimation(weather_description);
+    changeWeatherIcon(weather_description);
+    
     document.getElementById('display_weather_header').innerHTML = "The Weather In " + city_name;
     document.getElementById('weather_variables').innerHTML = weather_variables_string;
 }
