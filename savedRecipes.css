@@ -17,9 +17,6 @@ h2 {
     display: flex;
     flex-direction: column; /* Stack recipe items vertically */
     gap: 20px; /* Spacing between recipe items */
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 /* Individual recipe item */
@@ -49,6 +46,12 @@ h2 {
 /* More button */
 .more-button {
     margin-left: auto; /* Push the "More" button to the right */
+}
+
+.item-container {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 
