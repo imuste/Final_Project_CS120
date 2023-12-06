@@ -3,11 +3,11 @@ let currentRecipeIndex = 0;
 let recipesArray = [];
 var url_before = localStorage.getItem("country_url");
 var userID = localStorage.getItem('user_id');
-console.log("userID" + userID);
+//console.log("userID" + userID);
 var url = url_before.replace(/^"(.*)"$/, "$1"); // Removes quotes from the beginning and end of the string
 
 const id_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
-
+// fetches array of recipes from mealsDB
 async function use_mealDB_country() {
     try {
         const response = await fetch(url);
@@ -17,7 +17,7 @@ async function use_mealDB_country() {
         console.log(error);
     }
 }
-
+//processes data returned from the API, randomizing the data and selecting 5 dishes
 async function process_country(data) {
     if (data && data.meals) {
         const meals = data.meals;
@@ -34,13 +34,13 @@ async function process_country(data) {
         console.log("No meals found");
     }
 }
-
+// Refers to API again to obtain all information of a dish using its ID
 async function full_meal_lookups(selectedRecipes) {
     for (let recipe of selectedRecipes) {
         await use_mealDB_id(recipe.id, true);
     }
 }
-
+//retrieves data from API, then sends to process function
 async function use_mealDB_id(id, initialLoad) {
     try {
         const this_url = id_url + id;
@@ -51,7 +51,7 @@ async function use_mealDB_id(id, initialLoad) {
         console.log(error);
     }
 }
-
+//Stores recipe into either savedRecipes Array of recipesArray
 function process_id(data, initialLoad) {
     var dishName = data.meals[0].strMeal;
     var youtubeURL = data.meals[0].strYoutube;
@@ -90,7 +90,7 @@ function process_id(data, initialLoad) {
     }
 }
 
-
+// displays currently selected Recipe from savedRecipes array, displaying all info
 async function displaySavedRecipes() {
     const recipesContainer = document.getElementById('recipes-container');
     recipesContainer.innerHTML = ''; // Clear the container before displaying updated content
@@ -141,7 +141,6 @@ async function displaySavedRecipes() {
         recipeItem.appendChild(viewButton);
 
         recipesContainer.appendChild(recipeItem);
-        // Inside displaySavedRecipes function
 
         // Create a button to save the recipe
         const saveButton = document.createElement('button');
@@ -155,7 +154,7 @@ async function displaySavedRecipes() {
 
     }
 }
-
+//function to call php script to add recipe and userId to assignment table
 function saveRecipe(userID, recipeID) {
     fetch(`saveRecipe.php?userID=${userID}&recipeID=${recipeID}`)
         .then(response => response.text())
@@ -169,7 +168,7 @@ function saveRecipe(userID, recipeID) {
 }
 
 
-
+// function to display content on page
 window.onload = async function () {
     savedRecipes = []; // Reset the array before fetching new recipes
     await use_mealDB_country();
@@ -193,7 +192,7 @@ window.onload = async function () {
 
     const dropdownBtn = document.getElementById('dropdownBtn');
     const dropdownMenu = document.getElementById('dropdownMenu');
-
+    // displays menu items
     dropdownBtn.addEventListener('click', () => {
         dropdownMenu.classList.toggle('show');
         createButtons(); // Create the button when dropdown is clicked
@@ -203,7 +202,7 @@ window.onload = async function () {
 
     
 }
-
+// creates home button and view saved recipes button
 function createButtons() {
     dropdownMenu.innerHTML = ''; // Clear previous content
 
@@ -227,7 +226,7 @@ function createButtons() {
     dropdownMenu.appendChild(orderButton);
 }
 
-
+// retrieves items to place in, and calls functions to placed in recipesArray.
 async function sendUserIDToPHP() {
     recipesArray = [];
     try {
@@ -244,7 +243,7 @@ async function sendUserIDToPHP() {
         for (let recipe of recipesArray){
             console.log(recipe.id + " " + recipe.name)
         }
-
+        // sets savedRecipes to then be accessed in next page
         localStorage.setItem("savedRecipes", JSON.stringify(recipesArray));
         
         window.location.href = "savedRecipes.html";
